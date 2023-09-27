@@ -1,0 +1,10 @@
+build
+*.*~
+*.rdbg
+*.bat
+*.vim
+cake.txt
+*video_docs
+todo.txt
+data.json
+part1
