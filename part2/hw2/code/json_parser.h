@@ -29,7 +29,7 @@ struct JsonToken{
 
 static JsonToken
 get_next_token(String8* data){
-    begin_timed_function();
+    //begin_timed_function();
     JsonToken token = {};
     str8_eat_whitespace(data);
     if(data->size){
@@ -55,7 +55,7 @@ get_next_token(String8* data){
                 u8 char_at = *data->str;
 
                 while(char_at != '"' && data->size){
-                    begin_timed_scope("get_next_token:while1");
+                    //begin_timed_scope("get_next_token:while1");
                     if(char_at == '\\' && data->size){
                         if(*(data->str + 1) == '"'){
                             str8_advance(data, 1);
@@ -109,15 +109,25 @@ get_next_token(String8* data){
                 }
 
                 while(str8_is_digit(*data->str)){
-                    begin_timed_scope("get_next_token:while2");
+                    //begin_timed_scope("get_next_token:while2");
                     str8_advance(data, 1);
                 }
                 char_at = *data->str;
+                //if(value != '0' && data->size){
+                //    while(str8_is_digit(*data->str)){
+                //        str8_advance(data, 1);
+                //    }
+                //    char_at = *data->str;
+                //}
+                //else if(value == '0' && data->size){
+                //    str8_advance(data, 1);
+                //    char_at = *data->str;
+                //}
 
                 if(char_at == '.' && data->size){
                     str8_advance(data, 1);
                     while(str8_is_digit(*data->str)){
-                        begin_timed_scope("get_next_token:while3");
+                        //begin_timed_scope("get_next_token:while3");
                         str8_advance(data, 1);
                     }
                     char_at = *data->str;
@@ -133,7 +143,7 @@ get_next_token(String8* data){
                     }
 
                     while(str8_is_digit(*data->str)){
-                        begin_timed_scope("get_next_token:while4");
+                        //begin_timed_scope("get_next_token:while4");
                         str8_advance(data, 1);
                     }
                     char_at = *data->str;
@@ -171,13 +181,13 @@ struct JsonElement{
 
 static JsonElement* parse_element(Arena* arena, String8* data, String8 key, JsonToken token);
 static JsonElement* parse_list(Arena* arena, String8* data, bool is_object){
-    begin_timed_function();
+    //begin_timed_function();
 
     JsonElement* first_element = {0};
     JsonElement* last_element = {0};
 
     while(data->size){
-        begin_timed_scope("parse_list:loop");
+        //begin_timed_scope("parse_list:loop");
         String8 key = {0};
         JsonToken token = get_next_token(data);
         if(is_object){
@@ -218,7 +228,7 @@ static JsonElement* parse_list(Arena* arena, String8* data, bool is_object){
 
 static JsonElement*
 parse_element(Arena* arena, String8* data, String8 key, JsonToken token){
-    begin_timed_function();
+    //begin_timed_function();
 
     JsonElement* sub_elements = {};
     JsonElement* element = push_struct(arena, JsonElement);
